@@ -1,0 +1,59 @@
+<apex:page showHeader="false" standardStylesheets="false">
+    <div class="slds" id="result-form">
+        <form name="resultForm" novalidate="true" class="slds-m-around--medium slds-m-right--xx-large">
+            <!-- 姓 -->
+            <div class="slds-form-element slds-has-divider--bottom">
+                <span class="slds-form-element__label">{!$ObjectType.Contact.Fields.LastName.Label}</span>
+                <div class="slds-form-element__control">
+                    <span class="slds-form-element__static" ng-bind="Wrapper.Contact.LastName"></span>
+                </div>
+            </div>
+            <!-- 名 -->
+            <div class="slds-form-element slds-has-divider--bottom">
+                <span class="slds-form-element__label">{!$ObjectType.Contact.Fields.FirstName.Label}</span>
+                <div class="slds-form-element__control">
+                    <span class="slds-form-element__static" ng-bind="Wrapper.Contact.FirstName"></span>
+                </div>
+            </div>
+            <!-- 電話 -->
+            <div class="slds-form-element slds-has-divider--bottom">
+                <span class="slds-form-element__label">{!$ObjectType.Contact.Fields.Phone.Label}</span>
+                <div class="slds-form-element__control">
+                    <span class="slds-form-element__static" ng-bind="Wrapper.Contact.Phone"></span>
+                </div>
+            </div>
+            <!-- メール -->
+            <div class="slds-form-element slds-has-divider--bottom">
+                <span class="slds-form-element__label">{!$ObjectType.Contact.Fields.Email.Label}</span>
+                <div class="slds-form-element__control">
+                    <span class="slds-form-element__static" ng-bind="Wrapper.Contact.Email"></span>
+                </div>
+            </div>
+            <!-- メール送信除外 -->
+            <div class="slds-form-element slds-has-divider--bottom">
+                <span class="slds-form-element__label">{!$ObjectType.Contact.Fields.HasOptedOutOfEmail.Label}</span>
+                <div class="slds-form-element__control">
+                    <span class="slds-form-element__static" ng-bind="Wrapper.Contact.HasOptedOutOfEmail"></span>
+                </div>
+            </div>
+            <!-- 誕生日 -->
+            <div class="slds-form-element slds-has-divider--bottom">
+                <span class="slds-form-element__label">{!$ObjectType.Contact.Fields.Birthdate.Label}</span>
+                <div class="slds-form-element__control">
+                    <span class="slds-form-element__static" ng-bind="Wrapper.Contact.Birthdate | date:'yyyy-MM-dd'"></span>
+                </div>
+            </div>
+            <!-- リードソース -->
+            <div class="slds-form-element slds-has-divider--bottom">
+                <span class="slds-form-element__label">{!$ObjectType.Contact.Fields.LeadSource.Label}</span>
+                <div class="slds-form-element__control">
+                    <span class="slds-form-element__static" ng-bind="Wrapper.Contact.LeadSource"></span>
+                </div>
+            </div>
+            <!-- 保存ボタン -->
+            <div class="slds-m-top--medium">
+                <button class="slds-button slds-button--brand" ng-click="doDetail($event)">詳細</button>
+            </div>
+        </form>
+    </div>
+</apex:page>

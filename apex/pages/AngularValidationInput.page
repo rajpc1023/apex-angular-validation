@@ -1,0 +1,126 @@
+<apex:page showHeader="false" standardStylesheets="false">
+    <div class="slds" id="input-form">
+        <form name="inputForm" novalidate="true" class="slds-m-horizontal--small">
+            <!-- メッセージ -->
+            <div class="slds-box slds-theme--info slds-m-bottom--small" ng-show="!!errorMessages.length">
+                <p><span ng-bind="errorMessages"></span></p>
+            </div>
+            <!-- 姓 -->
+            <div class="slds-form-element slds-is-required" ng-class="{'slds-has-error': inputForm.lastName.$invalid && inputForm.lastName.$dirty}">
+                <label class="slds-form-element__label" for="lastName">{!$ObjectType.Contact.Fields.LastName.Label}</label>
+                <div class="slds-form-element__control">
+                    <input name="lastName" ng-model="Wrapper.Contact.LastName" class="slds-input" type="text" required="true" ng-maxlength="40"  />
+                    <div ng-messages="inputForm.lastName.$error" ng-if="inputForm.lastName.$dirty">
+                        <div ng-message="required" class="slds-form-element__help">『{!$ObjectType.Contact.Fields.LastName.Label}』を入力してください</div>
+                        <div ng-message="maxlength" class="slds-form-element__help">文字数が上限を超えました</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 名 -->
+            <div class="slds-form-element" ng-class="{'slds-has-error': inputForm.firstName.$invalid && inputForm.firstName.$dirty}">
+                <label class="slds-form-element__label" for="firstName">{!$ObjectType.Contact.Fields.FirstName.Label}</label>
+                <div class="slds-form-element__control">
+                    <input name="firstName" class="slds-input" ng-model="Wrapper.Contact.FirstName" type="text" ng-maxlength="40" />
+                    <div ng-messages="inputForm.firstName.$error" ng-if="inputForm.firstName.$dirty">
+                        <div ng-message="maxlength" class="slds-form-element__help">文字数が上限を超えました</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 電話 -->
+            <div class="slds-form-element" ng-class="{'slds-has-error': inputForm.phone.$invalid && inputForm.phone.$dirty}">
+                <label class="slds-form-element__label" for="phone">{!$ObjectType.Contact.Fields.Phone.Label}</label>
+                <div class="slds-form-element__control">
+                    <input name="phone" class="slds-input" ng-model="Wrapper.Contact.Phone" type="tel" 
+                                                                ng-maxlength="40" ng-pattern="/^[\+]?[(]?[0-9]{1,10}[)]?[-\s\.]?[0-9]{1,10}[-\s\.]?[0-9]{1,10}$/" />
+                    <div ng-messages="inputForm.phone.$error" ng-if="inputForm.phone.$dirty">
+                        <div ng-message="maxlength" class="slds-form-element__help">文字数が上限を超えました</div>
+                        <div ng-message="pattern" class="slds-form-element__help">不正な形式です</div>
+                    </div>
+                </div>
+            </div>
+            <!-- メール -->
+            <div class="slds-form-element slds-is-required" ng-class="{'slds-has-error': inputForm.email.$invalid && inputForm.email.$dirty}">
+                <label class="slds-form-element__label" for="email">{!$ObjectType.Contact.Fields.Email.Label}</label>
+                <div class="slds-form-element__control">
+                    <input name="email" class="slds-input" ng-model="Wrapper.Contact.Email" type="email" ng-maxlength="255" required="true" />
+                    <div ng-messages="inputForm.email.$error" ng-if="inputForm.email.$dirty">
+                        <div ng-message="required" class="slds-form-element__help">『{!$ObjectType.Contact.Fields.Email.Label}』を入力してください</div>
+                        <div ng-message="maxlength" class="slds-form-element__help">文字数が上限を超えました</div>
+                        <div ng-message="email" class="slds-form-element__help">不正な形式です</div>
+                    </div>
+                </div>
+            </div>
+            <!-- メール(確認) -->
+            <div class="slds-form-element slds-is-required" ng-class="{'slds-has-error': inputForm.email_confirm.$invalid && inputForm.email_confirm.$dirty}">
+                <label class="slds-form-element__label" for="email_confirm">{!$ObjectType.Contact.Fields.Email.Label}(確認)</label>
+                <div class="slds-form-element__control">
+                    <input name="email_confirm" class="slds-input" ng-model="Wrapper.Email_Confirm" onpaste="return false"
+                                type="email"  required="true" ng-maxlength="255" match="Wrapper.Contact.Email"  />
+                    <div ng-messages="inputForm.email_confirm.$error" ng-if="inputForm.email_confirm.$dirty || inputForm.email.$dirty">
+                        <div ng-message="required" class="slds-form-element__help">『{!$ObjectType.Contact.Fields.Email.Label}(確認)』を入力してください</div>
+                        <div ng-message="maxlength" class="slds-form-element__help">文字数が上限を超えました</div>
+                        <div ng-message="email" class="slds-form-element__help">不正な形式です</div>
+                        <div ng-show="inputForm.email_confirm.$error.mismatch" class="slds-form-element__help">メールアドレスが一致していません</div>
+                    </div>
+                </div>
+            </div>
+            <!-- メール送信除外 -->
+            <div class="slds-form-element__control slds-m-vertical--small">
+                <label class="slds-checkbox" for="hasOptedOutOfEmail">
+                    <input name="hasOptedOutOfEmail" type="checkbox" ng-model="Wrapper.Contact.HasOptedOutOfEmail" id="hasOptedOutOfEmail" />
+                    <span class="slds-checkbox--faux"></span>
+                    <span class="slds-form-element__label">{!$ObjectType.Contact.Fields.HasOptedOutOfEmail.Label}</span>
+                </label>
+            </div>
+            <!-- 誕生日 -->
+            <div class="slds-form-element slds-is-required" ng-class="{'slds-has-error': inputForm.birthdate.$invalid && inputForm.birthdate.$dirty}">
+                <label class="slds-form-element__label" for="birthdate">{!$ObjectType.Contact.Fields.Birthdate.Label}</label>
+                <div class="slds-form-element__control">
+                    <input name="birthdate" class="slds-input" ng-model="Wrapper.Birthdate" type="date" required="true" />
+                    <div ng-messages="inputForm.birthdate.$error" ng-if="inputForm.birthdate.$dirty">
+                        <div ng-message="required" class="slds-form-element__help">『{!$ObjectType.Contact.Fields.Birthdate.Label}』を入力してください</div>
+                        <div ng-message="date" class="slds-form-element__help">不正な形式です</div>
+                    </div>
+                </div>
+            </div>
+            <!-- リードソース -->
+            <div class="slds-form-element__control slds-m-vertical--small">
+                <div class="slds-form-element">
+					<label class="slds-form-element__label" for="leadSource">{!$ObjectType.Contact.Fields.LeadSource.Label}</label>
+					<div class="slds-form-element__control">
+						<div class="slds-select_container">
+							<select id="leadSource" class="slds-select" ng-model="Wrapper.Contact.LeadSource">
+                                <option value="">-- なし --</option>
+								<option value="Web">Web</option>
+								<option value="Phone Inquiry">Phone Inquiry</option>
+								<option value="Partner Referral">Partner Referral</option>
+                                <option value="Purchased List">Purchased List</option>
+                                <option value="Other">Other</option>
+							</select>
+						</div>
+					</div>
+				</div>
+            </div>
+            <!-- 国 -->
+            <fieldset class="slds-form-element">
+				<legend class="slds-form-element__label slds-form-element__label--top">{!$ObjectType.Contact.Fields.MailingCountry.Label}</legend>
+				<div class="slds-form-element__control">
+					<label class="slds-radio" for="contry-jp">
+						<input type="radio" name="contry" value="日本" id="contry-jp" ng-model="Wrapper.Contact.MailingCountry" />
+						<span class="slds-radio--faux"></span>
+						<span class="slds-form-element__label">日本</span>
+					</label>
+					<label class="slds-radio" for="contry-other">
+						<input type="radio" name="contry" value="日本以外" id="contry-other" ng-model="Wrapper.Contact.MailingCountry" />
+                        <span class="slds-radio--faux"></span>
+                        <span class="slds-form-element__label">日本以外</span>
+					</label>
+				</div>
+			</fieldset>
+            <!-- 保存ボタン -->
+            <div class="slds-m-top--medium">
+                <button class="slds-button slds-button--brand" ng-click="doSave($event)" ng-disabled="inputForm.$invalid">保存</button>
+            </div>
+        </form>
+    </div>
+</apex:page>
