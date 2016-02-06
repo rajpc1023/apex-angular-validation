@@ -31,7 +31,7 @@
                 <label class="slds-form-element__label" for="phone">{!$ObjectType.Contact.Fields.Phone.Label}</label>
                 <div class="slds-form-element__control">
                     <input name="phone" class="slds-input" ng-model="Wrapper.Contact.Phone" type="tel" 
-                                                                ng-maxlength="40" ng-pattern="/^[\+]?[(]?[0-9]{1,10}[)]?[-\s\.]?[0-9]{1,10}[-\s\.]?[0-9]{1,10}$/" />
+                                                                ng-maxlength="40" ng-pattern="/^[-0-9]{0,10}$/" />
                     <div ng-messages="inputForm.phone.$error" ng-if="inputForm.phone.$dirty">
                         <div ng-message="maxlength" class="slds-form-element__help">文字数が上限を超えました</div>
                         <div ng-message="pattern" class="slds-form-element__help">不正な形式です</div>
